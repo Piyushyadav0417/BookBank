@@ -1,0 +1,1 @@
+web: gunicorn BookBank.wsgi --log-file -
