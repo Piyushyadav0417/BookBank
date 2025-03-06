@@ -1,0 +1,59 @@
+
+/* General Styling */
+body {
+transition: background 0.3s, color 0.3s;
+}
+
+/* Grid Layout for Categories */
+.category-container {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 20px;
+padding: 20px;
+justify-items: center;
+}
+
+/* Category Card Styling */
+.category-card {
+background: #fff;
+border-radius: 10px;
+overflow: hidden;
+text-align: center;
+transition: transform 0.3s, box-shadow 0.3s;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.category-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Image Styling */
+.category-card img {
+width: 100%;
+height: 200px;
+object-fit: cover;
+}
+
+/* Description */
+.category-card p {
+padding: 10px;
+font-size: 14px;
+color: #555;
+}
+
+/* Button */
+.category-card a button {
+background: #007bff;
+color: white;
+border: none;
+padding: 8px 15px;
+margin-bottom: 10px;
+border-radius: 5px;
+cursor: pointer;
+transition: 0.3s;
+}
+
+.category-card a button:hover {
+background: #0056b3;
+}

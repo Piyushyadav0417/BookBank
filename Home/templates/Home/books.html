@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title %}
+    {{ category.book_category_name }}
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'books.css' %}">
+{% endblock %}
+
+{% block heading %}
+    {{ category.book_category_name }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- 🔍 Search & Sorting -->
+    <div class="search-sort-container">
+        <input type="text" id="search" placeholder="Search books..." onkeyup="searchBooks()">
+        <select id="sort" onchange="sortBooks()">
+            <option value="latest">Sort by Latest</option>
+            <option value="liked">Sort by Most Liked</option>
+        </select>
+    </div>
+    
+    <!-- 📚 Books Grid -->
+    <div class="books-container">
+        {% for book in books %}
+        <div class="book-card" data-title="{{ book.book_name }}" data-likes="{{ book.likes }}">
+            <img src="{{ book.book_coverpage.url }}" alt="{{ book.book_name }}">
+            <h3>{{ book.book_name }}</h3>
+            <p><strong>Author:</strong> {{ book.book_author }}</p>
+            <a href="{% url 'detail' book.id %}" target="_blank">View More Details</a>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- 🔙 Back to Home -->
+    <div class="text-center mt-4">
+        <button onclick="window.location.href='{% url 'home_page' %}'" class="btn btn-outline-primary">
+            Back to Home
+        </button>
+    </div>
+</div>
+
+<!-- 🎯 JavaScript for Search & Sorting -->
+<script>
+    function searchBooks() {
+        let input = document.getElementById("search").value.toLowerCase();
+        let books = document.querySelectorAll(".book-card");
+        books.forEach(book => {
+            let title = book.getAttribute("data-title").toLowerCase();
+            book.style.display = title.includes(input) ? "block" : "none";
+        });
+    }
+
+    function sortBooks() {
+        let sortOption = document.getElementById("sort").value;
+        let booksContainer = document.querySelector(".books-container");
+        let books = Array.from(document.querySelectorAll(".book-card"));
+        
+        if (sortOption === "liked") {
+            books.sort((a, b) => b.getAttribute("data-likes") - a.getAttribute("data-likes"));
+        }
+
+        books.forEach(book => booksContainer.appendChild(book));
+    }
+</script>
+{% endblock %}

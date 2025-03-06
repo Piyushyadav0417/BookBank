@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title %}
+    {{ request.user.username }}'s Profile
+{% endblock %}
+
+{% block css %}
+<style>
+    .profile-container {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .profile-picture {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 15px;
+    }
+
+    .profile-actions a {
+        display: inline-block;
+        margin: 5px;
+    }
+
+    .profile-bio {
+        font-size: 14px;
+        color: #555;
+        margin-top: 15px;
+    }
+
+    /* Dark Mode Support */
+    body.dark-mode .profile-container {
+        background: #222;
+        color: white;
+    }
+
+    body.dark-mode .profile-bio {
+        color: #bbb;
+    }
+</style>
+{% endblock %}
+
+{% block heading %}
+    Profile
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="profile-container">
+        <img src="{{ profile.profile_picture.url }}" alt="{{ request.user.first_name }}" class="profile-picture">
+        <h2>{{ request.user.first_name }} {{ request.user.last_name }}</h2>
+        <p>@{{ request.user.username }}</p>
+        <p class="profile-bio">{{ profile.bio }}</p>
+        
+        <div class="profile-actions">
+            <a href="{% url 'suggested_books_page' %}" class="btn btn-primary">Suggested Books</a>
+            <a href="{% url 'change_password' %}" class="btn btn-warning">Change Password</a>
+            {% if request.user == profile.user %}
+                <a href="{% url 'edit_profile' %}" class="btn btn-secondary">Edit Profile</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

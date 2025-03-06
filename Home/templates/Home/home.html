@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% load static %}
+
+<!-- Title -->
+{% block title %}
+    Home Page
+{% endblock %}
+
+<!-- CSS -->
+{% block css %}
+<link rel="stylesheet" href="{% static 'home.css' %}">
+{% endblock %}
+
+<!-- Heading -->
+{% block heading %}
+    Book Categories
+{% endblock %}
+
+<!-- Content -->
+{% block content %}
+
+<div class="container">
+    <div class="category-container">
+        {% for category in Categories %}
+        <div class="category-card">
+            <img src="{{ category.book_category_coverpage.url }}" alt="{{ category.book_category_name }}">
+            <p>{{ category.book_category_description }}</p>
+            <a href="{% url 'books_by_category' category.id %}">
+                <button>{{ category.book_category_name }}</button>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

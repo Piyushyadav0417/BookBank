@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+
+{% block title %}Register - BookBank{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-4 shadow-lg border-0" style="width: 100%; max-width: 450px;">
+        <h2 class="text-center mb-3">Create an Account</h2>
+
+        <!-- Display Messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-info{% endif %} text-center" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Registration Form -->
+        <form action="{% url 'register_page' %}" method="POST" class="needs-validation">
+            {% csrf_token %}
+
+            <!-- First Name -->
+            <div class="mb-3">
+                <label for="register-firstname" class="form-label">First Name</label>
+                <input type="text" name="first_name" id="register-firstname" class="form-control" placeholder="Enter your first name" required>
+            </div>
+
+            <!-- Last Name -->
+            <div class="mb-3">
+                <label for="register-lastname" class="form-label">Last Name</label>
+                <input type="text" name="last_name" id="register-lastname" class="form-control" placeholder="Enter your last name" required>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label for="register-email" class="form-label">Email</label>
+                <input type="email" name="email" id="register-email" class="form-control" placeholder="Enter your email" required>
+            </div>
+
+            <!-- Username -->
+            <div class="mb-3">
+                <label for="register-username" class="form-label">Username</label>
+                <input type="text" name="username" id="register-username" class="form-control" placeholder="Choose a username" required>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+                <label for="register-password" class="form-label">Password</label>
+                <input type="password" name="password" id="register-password" class="form-control" placeholder="Enter a secure password" required>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+
+            <!-- Links -->
+            <div class="text-center mt-3">
+                <p>Already have an account? <a href="{% url 'login_page' %}" class="text-decoration-none">Login</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Custom Styles -->
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .dark-mode body {
+        background-color: #121212;
+    }
+
+    .card {
+        border-radius: 12px;
+        background: white;
+        transition: box-shadow 0.3s ease-in-out;
+    }
+
+    .card:hover {
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .dark-mode .card {
+        background: #1e1e1e;
+        color: white;
+    }
+
+    .dark-mode .form-control {
+        background: #2c2c2c;
+        color: white;
+        border: 1px solid #444;
+    }
+
+    .dark-mode .form-control::placeholder {
+        color: #bbb;
+    }
+</style>
+
+{% endblock %}

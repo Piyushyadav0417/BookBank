@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<h2>Suggested Books for You</h2>
+{% if suggested_books %}
+    <ul>
+        {% for book in suggested_books %}
+            <li>
+                <img src="{{ book.book_coverpage.url }}" alt="{{ book.book_name }}" width="100">
+                <strong>{{ book.book_name }}</strong> by {{ book.book_author }} <br>
+                <a href="{% url 'detail' book.id %}">View Book</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No suggested books yet. Like or comment on books to get recommendations!</p>
+{% endif %}
+
+{% endblock %}
